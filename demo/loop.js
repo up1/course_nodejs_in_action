@@ -19,11 +19,3 @@ users.forEach(function(user){
 while(user = users.reverse().pop()) {
   console.log(user);
 }
-
-
-// var userList = [{"id": 1, "name": "Name 1"}, {"id": 2, "name": "Name 2"}];
-// console.log(userList[0].id);
-// console.log(userList[0].name);
-// userList.forEach(function(user){
-//   console.log(user.id + " : " + user.name);
-// });
