@@ -10,3 +10,6 @@ var hello = function(name) {
 }
 
 hello("somkiat");
+
+var hello = (name) => { console.log("Hello " + name) }
+hello("somkiat")
