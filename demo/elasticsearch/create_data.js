@@ -17,3 +17,7 @@ client.index({
 },function(err,resp,status) {
     console.log(resp);
 });
+
+client.count({index: 'media',type: 'photo'},function(err,resp,status) {
+  console.log("Photo",resp);
+});
