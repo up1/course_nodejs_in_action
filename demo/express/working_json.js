@@ -6,10 +6,6 @@ photos.push({
   name: "First",
   path: "image01.jpg"
 });
-photos.push({
-  name: "SEcond",
-  path: "image02.jpg"
-});
 
 app.get('/photos', function(request, response){
   response.json(photos)
