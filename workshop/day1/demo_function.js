@@ -7,7 +7,7 @@ var add2 = function(num1, num2) {
 }
 
 console.log(add2(2, 3));
-console.log(add(1));
+console.log(add("test"));
 
 var add3 = (num1, num2) => {
     return num1 + num2;
