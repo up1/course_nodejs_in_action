@@ -1,0 +1,9 @@
+{
+  "name": "monitoring",
+  "version": "0.0.0",
+  "dependencies": {
+    "jquery": "~3.1.1",
+    "highcharts": "~5.0.7",
+    "express": "~4.14.1"
+  }
+}
