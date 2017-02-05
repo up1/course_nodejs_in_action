@@ -1,0 +1,103 @@
+<html>
+    <head>
+        <title>Demo :: Monotiring system</title>
+    </head>
+    <body>
+
+        <div class='example-container'>
+            <div class='example' id='example_cpu'></div>
+            <div class='example' id='example_memory'></div>
+        </div>
+
+        <script src='./bower_components/jquery/dist/jquery.js'></script>
+        <script src='./bower_components/highcharts/highcharts.src.js'></script>
+        <script src='./bower_components/highcharts/highcharts-more.src.js'></script>
+        <script src='./bower_components/underscore/underscore.js'></script>
+
+        <script type='text/javascript'>
+            $(document).ready(function() {
+                var addOrUpdateSeries = function(chart, dataSeries, name) {
+                    var id = dataSeries.id,
+                        display = (name) ? '' + name + id : id,
+                        series = chart.get(id),
+                        percent = dataSeries.percent,
+                        timestamp = dataSeries.time,
+                        redraw = true,
+                        newSeries, existingPoints, point;
+
+                    if (series) {
+                        existingPoints = series.data.length
+                        point = {
+                            x: timestamp,
+                            y: percent
+                        }
+                        series.addPoint(point, redraw, existingPoints > 10);
+                    } else {
+                        newSeries = {
+                            id: id,
+                            name: display,
+                            data: [{
+                                x: timestamp,
+                                y: percent
+                            }]
+                        }
+                        chart.addSeries(newSeries);
+                    }
+                };
+
+                var chart3Options = {
+                    chart: {
+                        type: 'spline',
+                    },
+                    xAxis: {
+                        type: 'datetime'
+                    },
+                    yAxis: {
+                        max: 100,
+                        min: 0
+                    },
+                    series: [{
+        name: 'Tokyo',
+        data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+    }]
+                }
+
+                var chart3aOptions = _.extend({}, chart3Options);
+                chart3aOptions.chart.events = {
+                    load: function () {
+                        var self = this;
+                        setInterval(function() {
+                            $.getJSON('/cpu/', function(data) {
+                                for (var i=0; i < data.length; i++) {
+                                    addOrUpdateSeries(self, data[i], 'CPU #');
+                                }
+                            });
+                        }, 1000);
+                    }
+                };
+                chart3aOptions.title = {
+                    text: 'CPU usage'
+                };
+                $('#example_cpu').highcharts(chart3aOptions);
+
+                var chart3bOptions = _.extend({}, chart3Options);
+                chart3bOptions.chart.events = {
+                    load: function () {
+                        var self = this;
+                        setInterval(function() {
+                            $.getJSON('/memory/', function(data) {
+                                for (var i=0; i < data.length; i++) {
+                                    addOrUpdateSeries(self, data[i]);
+                                }
+                            });
+                        }, 1000);
+                    }
+                };
+                chart3bOptions.title = {
+                    text: 'Memory usage'
+                };
+                $('#example_memory').highcharts(chart3bOptions);
+            });
+        </script>
+    </body>
+</html>

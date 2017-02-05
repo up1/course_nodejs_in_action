@@ -1,0 +1,8 @@
+{
+  "name": "monitoring",
+  "dependencies": {
+    "jquery": "~3.1.1",
+    "highcharts": "~5.0.7",
+    "underscore": "~1.8.3"
+  }
+}
