@@ -1,0 +1,12 @@
+<html>
+<body>
+<h1>Client Page</h1>
+<script src='./socket.io-1.4.5.js'></script>
+<script>
+    var socket = io('http://localhost:3000');
+    socket.on('connect', function () {
+      socket.send(window.location.href);
+    });
+</script>
+</body>
+</html>
